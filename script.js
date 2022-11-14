@@ -28,7 +28,7 @@ if (navigator.geolocation) {
 
       L.marker(coords)
         .addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .bindPopup('your current position')
         .openPopup();
     },
     function () {
