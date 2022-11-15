@@ -16,10 +16,9 @@ class Workout {
 
     this.discription = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
-    } ${this.date.getDate()}, ${new Intl.DateTimeFormat('en-GB', {
+    } ${this.date.getDate()}, ${new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: 'numeric',
-      second: 'numeric',
     }).format(this.date)}`;
   }
 }
