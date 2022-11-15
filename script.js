@@ -16,7 +16,7 @@ class Workout {
 
     this.discription = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
-    } ${this.date.getDate()} ${new Intl.DateTimeFormat('en-GB', {
+    } ${this.date.getDate()}, ${new Intl.DateTimeFormat('en-GB', {
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
@@ -119,6 +119,7 @@ class App {
   _showForm(e) {
     this.#mapEvent = e;
     form.classList.remove('hidden');
+    inputType.value = 'running';
     inputDistance.focus();
   }
 
