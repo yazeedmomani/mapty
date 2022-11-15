@@ -183,6 +183,9 @@ class App {
     [inputDistance, inputDuration, inputCadence, inputElevation].forEach(
       cur => (cur.value = '')
     );
+    inputType.value = 'running';
+    inputDistance.focus();
+    form.classList.add('hidden');
   }
 
   _renderMarker(workout) {
