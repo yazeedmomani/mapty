@@ -27,9 +27,35 @@ if (navigator.geolocation) {
       }).addTo(map);
 
       L.marker(coords)
-        .addTo(map)
-        .bindPopup('your current position')
-        .openPopup();
+          .addTo(map)
+          .bindPopup(L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'yaz-popup'
+          }))
+          .setPopupContent('Your current position')
+          .openPopup();
+      
+      
+      map.on('click', function(e){
+        const {lat, lng} = e.latlng;
+        console.log(lat, lng);
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup'
+          }))
+          .setPopupContent('Workout')
+          .openPopup();
+      });
+      
     },
     function () {
       alert('Could not get your current position');
