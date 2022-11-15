@@ -11,15 +11,16 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+let map, mapEvent;
+
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     function (position) {
       const { latitude } = position.coords;
       const { longitude } = position.coords;
       const coords = [latitude, longitude];
-      console.log(`https://www.google.com/maps/@${latitude},${longitude},18z`);
 
-      const map = L.map('map').setView(coords, 20);
+      map = L.map('map').setView(coords, 20);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
@@ -27,38 +28,55 @@ if (navigator.geolocation) {
       }).addTo(map);
 
       L.marker(coords)
-          .addTo(map)
-          .bindPopup(L.popup({
+        .addTo(map)
+        .bindPopup(
+          L.popup({
             maxWidth: 250,
             minWidth: 100,
             autoClose: false,
             closeOnClick: false,
-            className: 'yaz-popup'
-          }))
-          .setPopupContent('Your current position')
-          .openPopup();
-      
-      
-      map.on('click', function(e){
-        const {lat, lng} = e.latlng;
-        console.log(lat, lng);
+            className: 'yaz-popup',
+          })
+        )
+        .setPopupContent('Your current position')
+        .openPopup();
 
-        L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup(L.popup({
-            maxWidth: 250,
-            minWidth: 100,
-            autoClose: false,
-            closeOnClick: false,
-            className: 'running-popup'
-          }))
-          .setPopupContent('Workout')
-          .openPopup();
+      map.on('click', function (e) {
+        mapEvent = e;
+        form.classList.remove('hidden');
+        inputDistance.focus();
       });
-      
     },
     function () {
       alert('Could not get your current position');
     }
   );
 }
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  //Clear Input Fields
+  [inputDistance, inputDuration, inputCadence, inputElevation].forEach(cur => cur.value = '');
+  
+  //Display Marker
+  const { lat, lng } = mapEvent.latlng;
+
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'running-popup',
+      })
+    )
+    .setPopupContent('Workout')
+    .openPopup();
+});
+
+inputType.addEventListener('change', function(){
+  [inputElevation, inputCadence].forEach(cur => cur.closest('.form__row').classList.toggle('form__row--hidden'))
+})
