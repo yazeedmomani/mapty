@@ -57,8 +57,10 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   //Clear Input Fields
-  [inputDistance, inputDuration, inputCadence, inputElevation].forEach(cur => cur.value = '');
-  
+  [inputDistance, inputDuration, inputCadence, inputElevation].forEach(
+    cur => (cur.value = '')
+  );
+
   //Display Marker
   const { lat, lng } = mapEvent.latlng;
 
@@ -77,6 +79,8 @@ form.addEventListener('submit', function (e) {
     .openPopup();
 });
 
-inputType.addEventListener('change', function(){
-  [inputElevation, inputCadence].forEach(cur => cur.closest('.form__row').classList.toggle('form__row--hidden'))
-})
+inputType.addEventListener('change', function () {
+  [inputElevation, inputCadence].forEach(cur =>
+    cur.closest('.form__row').classList.toggle('form__row--hidden')
+  );
+});
