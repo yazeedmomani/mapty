@@ -124,6 +124,19 @@ class App {
     form.classList.remove('hidden');
   }
 
+  _hideForm() {
+    form.style.display = 'none';
+    form.classList.add('hidden');
+    [inputDistance, inputDuration, inputCadence, inputElevation].forEach(
+      cur => (cur.value = '')
+    );
+    inputType.value = 'running';
+    inputDistance.focus();
+    inputElevation.closest('.form__row').classList.add('form__row--hidden');
+    inputCadence.closest('.form__row').classList.remove('form__row--hidden');
+    setTimeout(() => (form.style.display = 'grid'), 1000);
+  }
+
   _toggleElevationField() {
     [inputElevation, inputCadence].forEach(cur =>
       cur.closest('.form__row').classList.toggle('form__row--hidden')
@@ -182,14 +195,7 @@ class App {
     this._renderList(workout);
 
     // Hide form + clear input fields
-    form.classList.add('hidden');
-    [inputDistance, inputDuration, inputCadence, inputElevation].forEach(
-      cur => (cur.value = '')
-    );
-    inputType.value = 'running';
-    inputDistance.focus();
-    inputElevation.closest('.form__row').classList.add('form__row--hidden');
-    inputCadence.closest('.form__row').classList.remove('form__row--hidden');
+    this._hideForm();
   }
 
   _renderMarker(workout) {
