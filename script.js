@@ -117,11 +117,11 @@ class App {
 
   _showForm(e) {
     this.#mapEvent = e;
-    form.classList.remove('hidden');
     inputType.value = 'running';
     inputElevation.closest('.form__row').classList.add('form__row--hidden');
     inputCadence.closest('.form__row').classList.remove('form__row--hidden');
     inputDistance.focus();
+    form.classList.remove('hidden');
   }
 
   _toggleElevationField() {
